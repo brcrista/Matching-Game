@@ -1,9 +1,10 @@
-#Board {
-    background-color: rgb(233, 225, 182);
+body {
+    background-color: rgb(211, 238, 216);
 }
 
-body {
-    margin: 0 0 0 0;
+#Board {
+    width: 80%;
+    margin: auto;
 }
 
 .row {
@@ -12,13 +13,17 @@ body {
 }
 
 .tile {
-    background-color: rgb(255, 65, 65);
-    height: 100px;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    width: 100px;
+    height: 125px;
+    width: 125px;
+
+    background-color: rgb(59, 65, 70);
+
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 40px;
+    margin-top: 30px;
+
+    border-radius: 15px;
 }
 
 .tile:first-child {
@@ -26,5 +31,6 @@ body {
 }
 
 .tile:hover {
-    background-color: rgb(255, 100, 100);
+    background-color: rgb(14, 4, 32);
+    box-shadow: 0 0 5px 10px rgb(100, 250, 103);
 }
