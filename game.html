@@ -4,33 +4,13 @@
         <meta charset="utf-8">
         <title>Matching Game</title>
         <link rel="stylesheet" href="style/master.css" media="screen" charset="utf-8">
+        <script type="application/javascript" src="scripts/game.js"></script>
     </head>
     <body>
         <div id="Board">
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
-            <div class="row">
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-                <div class="tile"></div>
-            </div>
         </div>
+        <script type="application/javascript">
+            view.createBoard(document.getElementById("Board"), 4, 4);
+        </script>
     </body>
 </html>
