@@ -2,7 +2,7 @@ body {
     background-color: rgb(211, 238, 216);
 }
 
-#Board {
+.board {
     width: 80%;
     margin: auto;
 }
@@ -35,10 +35,10 @@ body {
     box-shadow: 0 0 5px 10px rgb(171, 232, 182);
 }
 
-.tile.face-up {
+.tile.revealed {
     background-color: rgb(227, 12, 58);
 }
 
-.tile.face-up:hover {
+.tile.revealed:hover {
     background-color: rgb(227, 12, 58);
 }
