@@ -1,25 +1,43 @@
 function GameState() {
     this.firstTry = true;
-    this.lastTile = null;
+    this.firstTile = null;
+    this.secondTile = null;
+    this.success = null; //!< Whether the last attempt resulted in a match
+    this.tilesToFlip = [];
+
+    this.isMatch = function() {
+        return this.firstTile.key === this.secondTile.key &&
+            this.firstTile !== null;
+    };
 
     this.update = function(tile) {
-        // if the tile is face up
         if (tile.revealed) {
             return;
         } else {
             tile.flip();
 
             if (this.firstTry) {
-                this.lastTile = tile;
+                if (this.success == false) {
+                    var x;
+                    while (x = this.tilesToFlip.pop()) {
+                        x.flip();
+                    }
+                }
+
+                this.firstTile = tile;
                 this.firstTry = false;
             } else {
-                if (tile.key !== this.lastTile.key) {
-                    tile.flip();
-                    this.lastTile.flip();
+                this.secondTile = tile;
+
+                if (this.isMatch()) {
+                    this.success = true;
+                } else {
+                    this.success = false;
+                    this.tilesToFlip.push(this.firstTile);
+                    this.tilesToFlip.push(this.secondTile);
                 }
 
                 this.firstTry = true;
-                this.lastTile = null;
             }
         }
     };
