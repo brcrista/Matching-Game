@@ -39,6 +39,15 @@ function Model(width, height) {
         };
     }
 
+    //! Generates keys for tiles on the game board.
+    //! The generator should produce each key an even number of times.
+    function KeyGenerator() {
+        this.key = function(heightIndex, widthIndex) {
+            var tileNumber = heightIndex * height + widthIndex;
+            return Math.floor(tileNumber / 2);
+        }
+    }
+
     function createRow(width, gameState) {
         var row = [];
         for (let i = 0; i < width; i++) {
@@ -54,11 +63,10 @@ function Model(width, height) {
             board[i] = createRow(width, gameState);
         }
 
-        let tileNumber = 0;
+        var keys = new KeyGenerator();
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
-                board[i][j].key = Math.floor(tileNumber / 2);
-                tileNumber++;
+                board[i][j].key = keys.key(i, j);
             }
         }
 
