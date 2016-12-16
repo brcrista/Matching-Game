@@ -1,8 +1,8 @@
 body {
-    background-color: rgb(211, 238, 216);
+    background-color: rgb(231, 235, 232);
 }
 
-#Board {
+.board {
     width: 80%;
     margin: auto;
 }
@@ -32,13 +32,5 @@ body {
 
 .tile:hover {
     background-color: rgb(14, 4, 32);
-    box-shadow: 0 0 5px 10px rgb(171, 232, 182);
-}
-
-.tile.face-up {
-    background-color: rgb(227, 12, 58);
-}
-
-.tile.face-up:hover {
-    background-color: rgb(227, 12, 58);
+    box-shadow: 0 0 5px 10px rgb(245, 255, 250);
 }

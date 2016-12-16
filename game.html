@@ -7,10 +7,9 @@
         <script type="application/javascript" src="scripts/game.js"></script>
     </head>
     <body>
-        <div id="Board">
-        </div>
         <script type="application/javascript">
-            view.createBoard(document.getElementById("Board"), 4, 4);
+            var model = new Model(4, 4);
+            document.body.appendChild(createView(model));
         </script>
     </body>
 </html>
