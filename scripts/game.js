@@ -1,81 +1,134 @@
-function Model(width, height) {
-    function flip(tile) {
+function GameState() {
+    this.firstTry = true;
+    this.lastTile = null;
+
+    this.update = function(tile) {
         // if the tile is face up
-        //     do nothing
-        // else (tile is face up)
-        //     if this is the first tile
-        //         flip it
-        //         remember what its key is
-        //         move on to the second tile
-        //     else (this is the second tile)
-        //         flip it
-        //         check if its key matches the first's
-        //         if the key matches
-        //             both tiles stay face up
-        //         else
-        //             both tiles are flipped back over
+        if (tile.revealed) {
+            return;
+        } else {
+            tile.flip();
 
-        // TODO
-        tile.revealed = !tile.revealed;
-    }
+            if (this.firstTry) {
+                this.lastTile = tile;
+                this.firstTry = false;
+            } else {
+                if (tile.key !== this.lastTile.key) {
+                    tile.flip();
+                    this.lastTile.flip();
+                }
 
-    function Tile(key) {
+                this.firstTry = true;
+                this.lastTile = null;
+            }
+        }
+    };
+}
+
+function Model(width, height) {
+    function Tile(key, gameState) {
         this.key = key;
         this.revealed = false;
-        this.notify = () => flip(this);
+
+        this.flip = function() {
+            this.revealed = !this.revealed;
+        };
+
+        this.notify = function() {
+            gameState.update(this);
+        };
     }
 
-    function createRow(width) {
+    function createRow(width, gameState) {
         var row = [];
         for (let i = 0; i < width; i++) {
-            var key = i; // TODO
-            row[i] = new Tile(key);
+            row[i] = new Tile(null, gameState);
         }
 
         return row;
     }
 
-    function createBoard(width, height) {
+    function createBoard(width, height, gameState) {
         var board = [];
         for (let i = 0; i < height; i++) {
-            board[i] = createRow(width);
+            board[i] = createRow(width, gameState);
+        }
+
+        let tileNumber = 0;
+        for (let i = 0; i < height; i++) {
+            for (let j = 0; j < width; j++) {
+                board[i][j].key = Math.floor(tileNumber / 2);
+                tileNumber++;
+            }
         }
 
         return board;
     }
 
-    this.board = createBoard(width, height);
     this.width = width;
     this.height = height;
+    this.gameState = new GameState();
+    this.board = createBoard(this.width, this.height, this.gameState);
 };
 
 function createView(model) {
-    function onClickTile(tileView, tileModel) {
+    var tileConcealedColor = "rgb(59, 65, 70)";
+
+    var keyColor = {
+        0: "green",
+        1: "red",
+        2: "blue",
+        3: "orange",
+        4: "violet",
+        5: "pink",
+        6: "cyan",
+        7: "yellow"
+    };
+
+    function tileViewColor(tileModel) {
+        if (tileModel.revealed) {
+            return keyColor[tileModel.key];
+        } else {
+            return tileConcealedColor;
+        }
+    }
+
+    function updateView(viewRoot) {
+        var rows = viewRoot.children;
+        for (let i = 0; i < rows.length; i++) {
+            var tiles = rows[i].children;
+            for (let j = 0; j < tiles.length; j++) {
+                var tile = tiles[j];
+                tile.style.backgroundColor = tileViewColor(tile.model);
+            }
+        }
+    }
+
+    function onClickTile(viewRoot, tileView, tileModel) {
         return () => {
             tileModel.notify();
-
-            if (tileModel.revealed) {
-                tileView.classList.add("revealed");
-            } else {
-                tileView.classList.remove("revealed");
-            }
+            updateView(viewRoot);
         };
     }
 
-    function createTile(i, j) {
+    function createTile(viewRoot, i, j) {
+        var tileModel = model.board[i][j];
+
         var tile = document.createElement("tile");
         tile.classList.add("tile");
-        tile.onclick = onClickTile(tile, model.board[i][j]);
+        tile.style.backgroundColor = tileConcealedColor;
+        tile.onclick = onClickTile(viewRoot, tile, tileModel);
+        tile.model = tileModel;
 
         return tile;
     }
 
-    function createRow(i, width) {
+    function createRow(viewRoot, i, width) {
         var row = document.createElement("div");
         row.classList.add("row");
 
         for (let j = 0; j < width; j++) {
-            row.appendChild(createTile(i, j));
+            row.appendChild(createTile(viewRoot, i, j));
         }
 
         return row;
@@ -86,7 +139,7 @@ function createView(model) {
         board.classList.add("board");
 
         for (let i = 0; i < height; i++) {
-            board.appendChild(createRow(i, width));
+            board.appendChild(createRow(board, i, width));
         }
 
         return board;
