@@ -1,3 +1,13 @@
+//! Produce an array of `n` items from a `generator` function.
+//! The `generator` function will be passed the index of each element being generated.
+function generate(generator, n) {
+    var result = [];
+    for (let i = 0; i < n; i++) {
+        result.push(generator(i));
+    }
+    return result;
+}
+
 function GameState() {
     this.firstTry = true;
     this.firstTile = null;
@@ -6,8 +16,7 @@ function GameState() {
     this.tilesToFlip = [];
 
     this.isMatch = function() {
-        return this.firstTile.key === this.secondTile.key &&
-            this.firstTile !== null;
+        return this.firstTile.key === this.secondTile.key && this.firstTile !== null;
     };
 
     this.update = function(tile) {
@@ -67,19 +76,11 @@ function Model(width, height) {
     }
 
     function createRow(width, gameState) {
-        var row = [];
-        for (let i = 0; i < width; i++) {
-            row[i] = new Tile(null, gameState);
-        }
-
-        return row;
+        return generate(() => new Tile(null, gameState), width);
     }
 
     function createBoard(width, height, gameState) {
-        var board = [];
-        for (let i = 0; i < height; i++) {
-            board[i] = createRow(width, gameState);
-        }
+        var board = generate(createRow.bind(null, width, gameState), height);
 
         var keys = new KeyGenerator();
         for (let i = 0; i < height; i++) {
