@@ -8,12 +8,13 @@ function generate(generator, n) {
     return result;
 }
 
-function GameState() {
+function GameState(numberOfTiles) {
     this.firstTry = true;
     this.firstTile = null;
     this.secondTile = null;
     this.success = null; //!< Whether the last attempt resulted in a match
     this.tilesToFlip = [];
+    this.tilesRemaining = numberOfTiles;
 
     this.isMatch = function() {
         return this.firstTile.key === this.secondTile.key && this.firstTile !== null;
@@ -40,6 +41,7 @@ function GameState() {
 
                 if (this.isMatch()) {
                     this.success = true;
+                    this.tilesRemaining -= 2;
                 } else {
                     this.success = false;
                     this.tilesToFlip.push(this.firstTile);
@@ -94,6 +96,6 @@ function Model(width, height) {
 
     this.width = width;
     this.height = height;
-    this.gameState = new GameState();
+    this.gameState = new GameState(width * height);
     this.board = createBoard(this.width, this.height, this.gameState);
 };
