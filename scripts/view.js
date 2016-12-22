@@ -33,6 +33,10 @@ function createView(model) {
                 tile.style.backgroundColor = tileViewColor(tile.model);
             }
         }
+
+        if (model.gameState.tilesRemaining === 0) {
+            alert("You win!");
+        }
     }
 
     function onClickTile(tileView, tileModel) {
