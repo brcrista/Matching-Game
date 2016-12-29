@@ -97,7 +97,7 @@ var view = function() {
         var row = document.createElement("div");
         row.classList.add("row");
 
-        for (let j = 0; j < width; j++) { // TODO generate()
+        for (let j = 0; j < width; j++) {
             row.appendChild(createTile(model.board[i][j], model));
         }
 
