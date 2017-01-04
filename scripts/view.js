@@ -1,3 +1,5 @@
+'use strict';
+
 var view = function() {
     // TODO browser error: objects from `Tile` are not of type `Node`
     // function Tile(tileModel) {

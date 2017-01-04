@@ -1,3 +1,5 @@
+'use strict';
+
 var model = function() {
     function GameState(numberOfTiles) {
         this.firstTry = true;

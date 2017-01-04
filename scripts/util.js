@@ -1,3 +1,5 @@
+'use strict';
+
 //! Add fields from `parent` to `child` that `child` does not already have.
 function extend(child, parent) {
     for (let x in parent) {
