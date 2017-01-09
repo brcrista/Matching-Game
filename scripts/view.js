@@ -1,44 +1,6 @@
 'use strict';
 
 var view = function() {
-    // TODO browser error: objects from `Tile` are not of type `Node`
-    // function Tile(tileModel) {
-    //     var tileConcealedColor = "rgb(59, 65, 70)";
-    //
-    //     var keyColor = {
-    //         0: "green",
-    //         1: "red",
-    //         2: "blue",
-    //         3: "orange",
-    //         4: "violet",
-    //         5: "pink",
-    //         6: "cyan",
-    //         7: "yellow"
-    //     };
-    //
-    //     extend(this, document.createElement("div"));
-    //     this.classList.add("tile");
-    //     this.style.backgroundColor = tileConcealedColor; // TODO use this.update()
-    //     this.model = tileModel;
-    //
-    //     this.update = function() {
-    //         this.style.backgroundColor = function() {
-    //             if (this.model.revealed) {
-    //                 return keyColor[this.model.key];
-    //             } else {
-    //                 return tileConcealedColor;
-    //             }
-    //         }();
-    //     };
-    //
-    //     this.onclick = function() {
-    //         return function() {
-    //             this.model.notify();
-    //             updateView(this.model);
-    //         };
-    //     }
-    // }
-
     function createTile(tileModel, gameModel) {
         var tileConcealedColor = "rgb(59, 65, 70)";
 
