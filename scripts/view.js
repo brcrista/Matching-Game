@@ -17,7 +17,7 @@ var view = function() {
 
         var tile = document.createElement("div");
         tile.classList.add("tile");
-        tile.style.backgroundColor = tileConcealedColor; // TODO use this.update()
+        tile.style.backgroundColor = tileConcealedColor;
         tile.model = tileModel;
 
         tile.update = function() {
