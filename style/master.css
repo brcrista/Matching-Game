@@ -1,5 +1,7 @@
 body {
     background-color: rgb(231, 235, 232);
+    font-family: sans-serif;
+    font-size: 22px;
 }
 
 .board {
