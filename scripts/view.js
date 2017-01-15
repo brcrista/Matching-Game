@@ -5,14 +5,14 @@ var view = function() {
         var tileConcealedColor = "rgb(59, 65, 70)";
 
         var keyColor = {
-            0: "green",
+            0: "rgb(0, 180, 60)",
             1: "red",
             2: "blue",
             3: "orange",
-            4: "violet",
-            5: "pink",
-            6: "cyan",
-            7: "yellow"
+            4: "rgb(185, 0, 215)",
+            5: "rgb(252, 173, 205)",
+            6: "rgb(120, 222, 255)",
+            7: "rgb(230, 250, 0)"
         };
 
         var tile = document.createElement("div");
