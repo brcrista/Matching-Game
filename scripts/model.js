@@ -2,11 +2,11 @@
 
 //! Generates keys for tiles on the game board.
 //! The generator should produce each key an even number of times.
-var keyGen = function() {
+let keyGen = function() {
     //! A deterministic generator that assigns each pair of keys to adjacent tiles.
     function SideBySideGenerator(height, width) {
         this.nextKey = function(heightIndex, widthIndex) {
-            var tileNumber = heightIndex * height + widthIndex;
+            const tileNumber = heightIndex * height + widthIndex;
             return Math.floor(tileNumber / 2);
         };
     }
@@ -34,7 +34,7 @@ var keyGen = function() {
     };
 }();
 
-var model = function() {
+let model = function() {
     function GameState(numberOfTiles) {
         this.firstTry = true;
         this.firstTile = null;
@@ -55,7 +55,7 @@ var model = function() {
 
                 if (this.firstTry) {
                     if (this.success === false) {
-                        var x;
+                        let x;
                         while (x = this.tilesToFlip.pop()) {
                             x.flip();
                         }
@@ -100,9 +100,9 @@ var model = function() {
         }
 
         function createBoard(width, height, gameState) {
-            var board = generate(createRow.bind(null, width, gameState), height);
+            let board = generate(createRow.bind(null, width, gameState), height);
 
-            var keys = new keyGen.UniformRandomGenerator(height, width);
+            let keys = new keyGen.UniformRandomGenerator(height, width);
             for (let i = 0; i < height; i++) {
                 for (let j = 0; j < width; j++) {
                     board[i][j].key = keys.nextKey(i, j);

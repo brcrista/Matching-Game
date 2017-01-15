@@ -1,10 +1,10 @@
 'use strict';
 
-var view = function() {
+let view = function() {
     function createTile(tileModel, gameModel) {
-        var tileConcealedColor = "rgb(59, 65, 70)";
+        const tileConcealedColor = "rgb(59, 65, 70)";
 
-        var keyColor = {
+        const keyColor = {
             0: "rgb(0, 180, 60)",
             1: "red",
             2: "blue",
@@ -15,7 +15,7 @@ var view = function() {
             7: "rgb(230, 250, 0)"
         };
 
-        var tile = document.createElement("div");
+        let tile = document.createElement("div");
         tile.classList.add("tile");
         tile.style.backgroundColor = tileConcealedColor;
         tile.model = tileModel;
@@ -39,15 +39,15 @@ var view = function() {
     }
 
     function updateView(model) {
-        var tileCounter = document.getElementById("TileCounter");
+        let tileCounter = document.getElementById("TileCounter");
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
 
-        var board = document.getElementById("Board");
-        var rows = board.children;
+        let board = document.getElementById("Board");
+        let rows = board.children;
         for (let i = 0; i < rows.length; i++) {
-            var tiles = rows[i].children;
+            let tiles = rows[i].children;
             for (let j = 0; j < tiles.length; j++) {
-                var tile = tiles[j];
+                let tile = tiles[j];
                 tile.update();
             }
         }
@@ -58,7 +58,7 @@ var view = function() {
     }
 
     function createRow(i, width, model) {
-        var row = document.createElement("div");
+        let row = document.createElement("div");
         row.classList.add("row");
 
         for (let j = 0; j < width; j++) {
@@ -69,7 +69,7 @@ var view = function() {
     }
 
     function createBoard(width, height, model) {
-        var board = document.createElement("div");
+        let board = document.createElement("div");
         board.classList.add("board");
 
         for (let i = 0; i < height; i++) {
@@ -80,20 +80,20 @@ var view = function() {
     }
 
     function createTileCounter(model) {
-        var tileCounter = document.createElement("div");
+        let tileCounter = document.createElement("div");
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
 
         return tileCounter;
     }
 
     function createGameView(model) {
-        var gameView = document.createElement("div");
+        let gameView = document.createElement("div");
 
-        var tileCounter = createTileCounter(model);
+        let tileCounter = createTileCounter(model);
         tileCounter.id = "TileCounter";
         gameView.appendChild(tileCounter);
 
-        var board = createBoard(model.width, model.height, model);
+        let board = createBoard(model.width, model.height, model);
         board.id = "Board";
         gameView.appendChild(board);
 
