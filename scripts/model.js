@@ -1,6 +1,40 @@
 'use strict';
 
-var model = function() {
+//! Generates keys for tiles on the game board.
+//! The generator should produce each key an even number of times.
+let keyGen = function() {
+    //! A deterministic generator that assigns each pair of keys to adjacent tiles.
+    function SideBySideGenerator(height, width) {
+        this.nextKey = function(heightIndex, widthIndex) {
+            const tileNumber = heightIndex * height + widthIndex;
+            return Math.floor(tileNumber / 2);
+        };
+    }
+
+    //! A generator that assigns keys by choosing them with a uniform distribution.
+    function UniformRandomGenerator(height, width) {
+        const numberOfTiles = height * width;
+        if (numberOfTiles % 2 !== 0) throw new RangeError(`${height} * ${width} is not divisible by 2`);
+
+        const keyRange = range(0, numberOfTiles / 2 - 1);
+        this.remainingKeys = keyRange.concat(keyRange);
+
+        this.nextKey = function(heightIndex, widthIndex) {
+            //! Randomly choose an integer in the range [`0`, `size`) with a uniform distribution.
+            function randomIndex(size) {
+                return Math.floor(Math.random() * size);
+            }
+
+            return remove(this.remainingKeys, randomIndex(this.remainingKeys.length));
+        };
+    }
+
+    return {
+        UniformRandomGenerator: UniformRandomGenerator
+    };
+}();
+
+let model = function() {
     function GameState(numberOfTiles) {
         this.firstTry = true;
         this.firstTile = null;
@@ -21,7 +55,7 @@ var model = function() {
 
                 if (this.firstTry) {
                     if (this.success === false) {
-                        var x;
+                        let x;
                         while (x = this.tilesToFlip.pop()) {
                             x.flip();
                         }
@@ -61,26 +95,17 @@ var model = function() {
     }
 
     function Game(width, height) {
-        //! Generates keys for tiles on the game board.
-        //! The generator should produce each key an even number of times.
-        function KeyGenerator() {
-            this.key = function(heightIndex, widthIndex) {
-                var tileNumber = heightIndex * height + widthIndex;
-                return Math.floor(tileNumber / 2);
-            }
-        }
-
         function createRow(width, gameState) {
             return generate(() => new Tile(null, gameState), width);
         }
 
         function createBoard(width, height, gameState) {
-            var board = generate(createRow.bind(null, width, gameState), height);
+            let board = generate(createRow.bind(null, width, gameState), height);
 
-            var keys = new KeyGenerator();
+            let keys = new keyGen.UniformRandomGenerator(height, width);
             for (let i = 0; i < height; i++) {
                 for (let j = 0; j < width; j++) {
-                    board[i][j].key = keys.key(i, j);
+                    board[i][j].key = keys.nextKey(i, j);
                 }
             }
 
