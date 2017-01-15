@@ -14,7 +14,7 @@ function extend(child, parent) {
 //! Produce an array of `n` items from a `generator` function.
 //! The `generator` function will be passed the index of each element being generated.
 function generate(generator, n) {
-    var result = [];
+    let result = [];
     for (let i = 0; i < n; i++) {
         result.push(generator(i));
     }
