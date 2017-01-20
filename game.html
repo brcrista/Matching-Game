@@ -10,7 +10,35 @@
     </head>
     <body>
         <script type="application/javascript">
-            document.body.appendChild(view.createGameView(new model.Game(4, 4)));
+            function startGame() {
+                let selectDifficulty = document.getElementById("SelectDifficulty");
+                let difficulty = selectDifficulty.options[selectDifficulty.selectedIndex].text;
+
+                let gameModel = function() {
+                    switch (difficulty) {
+                        case "Easy": return new model.Game(4, 3);
+                        default:
+                        case "Medium": return new model.Game(4, 4);
+                        case "Hard": return new model.Game(5, 4);
+                    }
+                }();
+
+                document.body.removeChild(document.getElementById("DifficultyDialog"));
+                document.body.appendChild(view.createGameView(gameModel));
+            }
         </script>
+        <div class="centering-wrapper" id="DifficultyDialog">
+            <div class="dialog centering-wrapper">
+                <div class="dialog-content">
+                    <div class="startup-text">Select difficulty:</div>
+                    <select id="SelectDifficulty" autofocus>
+                        <option>Hard</option>
+                        <option selected>Medium</option>
+                        <option>Easy</option>
+                    </select>
+                    <button onclick="startGame()">Ok</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

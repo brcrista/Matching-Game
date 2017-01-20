@@ -1,7 +1,21 @@
+html {
+    height: 100%;
+}
+
 body {
-    background-color: rgb(231, 235, 232);
+    background-color: rgb(245, 255, 255);
     font-family: sans-serif;
     font-size: 22px;
+    height: 100%;
+    margin: 0;
+}
+
+.centering-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .board {
@@ -35,4 +49,25 @@ body {
 .tile:hover {
     background-color: rgb(14, 4, 32);
     box-shadow: 0 0 5px 10px rgb(245, 255, 250);
+}
+
+.dialog {
+    width: 40%;
+    background-color: rgb(180, 180, 180);
+    padding: 40px;
+    border-radius: 15px;
+    max-height: 5em;
+}
+
+.startup-text {
+    font-family: Tahoma;
+    font-size: 1.4em;
+}
+
+.dialog-content {
+    margin: auto;
+}
+
+.tile-counter {
+    margin: 10px;
 }
