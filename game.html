@@ -10,7 +10,23 @@
     </head>
     <body>
         <script type="application/javascript">
-            document.body.appendChild(view.createGameView(new model.Game(4, 4)));
+            function startGame() {
+                document.body.removeChild(document.getElementById("DifficultyDialog"));
+                document.body.appendChild(view.createGameView(new model.Game(4, 4)));
+            }
         </script>
+        <div class="centering-wrapper" id="DifficultyDialog">
+            <div class="dialog centering-wrapper">
+                <div class="dialog-content">
+                    <div class="startup-text">Select difficulty:</div>
+                    <select name="difficulty" autofocus>
+                        <option>Hard</option>
+                        <option selected>Medium</option>
+                        <option>Easy</option>
+                    </select>
+                    <button name="submit" onclick="startGame()">Ok</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -81,6 +81,7 @@ let view = function() {
 
     function createTileCounter(model) {
         let tileCounter = document.createElement("div");
+        tileCounter.classList.add("tile-counter");
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
 
         return tileCounter;
