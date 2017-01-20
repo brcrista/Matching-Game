@@ -12,7 +12,9 @@ let view = function() {
             4: "rgb(185, 0, 215)",
             5: "rgb(252, 173, 205)",
             6: "rgb(120, 222, 255)",
-            7: "rgb(230, 250, 0)"
+            7: "rgb(230, 250, 0)",
+            8: "rgb(0, 0, 0)",
+            9: "rgb(255, 255, 255)"
         };
 
         let tile = document.createElement("div");
