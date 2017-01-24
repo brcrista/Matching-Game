@@ -1,9 +1,16 @@
 OUTPUT_DIR := ../out
 
-all: dirs
+all: $(OUTPUT_DIR) html style scripts
+
+html: $(OUTPUT_DIR)
 	cp game.html $(OUTPUT_DIR)
+
+style: $(OUTPUT_DIR)
 	cp style/* $(OUTPUT_DIR)/style
+
+scripts: $(OUTPUT_DIR)
+	mkdir -p $(OUTPUT_DIR)/scripts
 	cp scripts/* $(OUTPUT_DIR)/scripts
 
-dirs:
-	mkdir -p $(OUTPUT_DIR) scripts style
+$(OUTPUT_DIR):	
+	mkdir -p $(OUTPUT_DIR)
