@@ -1,32 +1,47 @@
-'use strict';
-
 //! Generates keys for tiles on the game board.
 //! The generator should produce each key an even number of times.
 let keyGen = function() {
+    interface GetKey {
+        (heightIndex: number, widthIndex: number): number;
+    }
+
+    interface KeyGenerator {
+        nextKey: GetKey;
+    }
+
     //! A deterministic generator that assigns each pair of keys to adjacent tiles.
-    function SideBySideGenerator(height, width) {
-        this.nextKey = function(heightIndex, widthIndex) {
-            const tileNumber = heightIndex * height + widthIndex;
-            return Math.floor(tileNumber / 2);
+    class SideBySideGenerator implements KeyGenerator {
+        nextKey: GetKey;
+
+        constructor(height: number, width: number) {
+            this.nextKey = function(heightIndex, widthIndex) {
+                const tileNumber = heightIndex * height + widthIndex;
+                return Math.floor(tileNumber / 2);
+            }
         };
     }
 
     //! A generator that assigns keys by choosing them with a uniform distribution.
-    function UniformRandomGenerator(height, width) {
-        const numberOfTiles = height * width;
-        if (numberOfTiles % 2 !== 0) throw new RangeError(`${height} * ${width} is not divisible by 2`);
+    class UniformRandomGenerator implements KeyGenerator {
+        nextKey: GetKey;
+        private remainingKeys: number[];
 
-        const keyRange = range(0, numberOfTiles / 2 - 1);
-        this.remainingKeys = keyRange.concat(keyRange);
+        constructor(height: number, width: number) {
+            const numberOfTiles = height * width;
+            if (numberOfTiles % 2 !== 0) throw new RangeError(`${height} * ${width} is not divisible by 2`);
 
-        this.nextKey = function(heightIndex, widthIndex) {
-            //! Randomly choose an integer in the range [`0`, `size`) with a uniform distribution.
-            function randomIndex(size) {
-                return Math.floor(Math.random() * size);
-            }
+            const keyRange = range(0, numberOfTiles / 2 - 1);
+            this.remainingKeys = keyRange.concat(keyRange);
 
-            return remove(this.remainingKeys, randomIndex(this.remainingKeys.length));
-        };
+            this.nextKey = function(heightIndex, widthIndex): number {
+                //! Randomly choose an integer in the range [`0`, `size`) with a uniform distribution.
+                function randomIndex(size) {
+                    return Math.floor(Math.random() * size);
+                }
+
+                return remove<number>(this.remainingKeys, randomIndex(this.remainingKeys.length));
+            };
+        }
     }
 
     return {
@@ -35,87 +50,112 @@ let keyGen = function() {
 }();
 
 let model = function() {
-    function GameState(numberOfTiles) {
-        this.firstTry = true;
-        this.firstTile = null;
-        this.secondTile = null;
-        this.success = null; //!< Whether the last attempt resulted in a match
-        this.tilesToFlip = [];
-        this.tilesRemaining = numberOfTiles;
+    class GameState {
+        firstTry: boolean;
+        firstTile: Tile | null;
+        secondTile: Tile | null;
+        success: boolean | null;
+        tilesToFlip: Tile[];
+        tilesRemaining: number;
+        isMatch: () => boolean;
+        update: (Tile) => void;
 
-        this.isMatch = function() {
-            return this.firstTile.key === this.secondTile.key && this.firstTile !== null;
-        };
+        constructor(numberOfTiles: number) {
+            this.firstTry = true;
+            this.firstTile = null;
+            this.secondTile = null;
+            this.success = null; //!< Whether the last attempt resulted in a match
+            this.tilesToFlip = [];
+            this.tilesRemaining = numberOfTiles;
 
-        this.update = function(tile) {
-            if (tile.revealed) {
-                return;
-            } else {
-                tile.flip();
+            this.isMatch = function() {
+                return this.firstTile.key === this.secondTile.key && this.firstTile !== null;
+            };
 
-                if (this.firstTry) {
-                    if (this.success === false) {
-                        let x;
-                        while (x = this.tilesToFlip.pop()) {
-                            x.flip();
-                        }
-                    }
-
-                    this.firstTile = tile;
-                    this.firstTry = false;
+            this.update = function(tile) {
+                if (tile.revealed) {
+                    return;
                 } else {
-                    this.secondTile = tile;
+                    tile.flip();
 
-                    if (this.isMatch()) {
-                        this.success = true;
-                        this.tilesRemaining -= 2;
+                    if (this.firstTry) {
+                        if (this.success === false) {
+                            let x;
+                            while (x = this.tilesToFlip.pop()) {
+                                x.flip();
+                            }
+                        }
+
+                        this.firstTile = tile;
+                        this.firstTry = false;
                     } else {
-                        this.success = false;
-                        this.tilesToFlip.push(this.firstTile);
-                        this.tilesToFlip.push(this.secondTile);
+                        this.secondTile = tile;
+
+                        if (this.isMatch()) {
+                            this.success = true;
+                            this.tilesRemaining -= 2;
+                        } else {
+                            this.success = false;
+                            this.tilesToFlip.push(this.firstTile);
+                            this.tilesToFlip.push(this.secondTile);
+                        }
+
+                        this.firstTry = true;
                     }
-
-                    this.firstTry = true;
                 }
-            }
-        };
+            };
+        }
     }
 
-    function Tile(key, gameState) {
-        this.key = key;
-        this.revealed = false;
+    class Tile {
+        key?: number;
+        revealed: boolean;
+        flip: () => void;
+        notify: () => void;
 
-        this.flip = function() {
-            this.revealed = !this.revealed;
-        };
+        constructor(key: number | undefined, gameState: GameState) {
+            this.key = key;
+            this.revealed = false;
 
-        this.notify = function() {
-            gameState.update(this);
-        };
+            this.flip = function() {
+                this.revealed = !this.revealed;
+            };
+
+            this.notify = function() {
+                gameState.update(this);
+            };
+        }
     }
 
-    function Game(width, height) {
-        function createRow(width, gameState) {
-            return generate(() => new Tile(null, gameState), width);
-        }
+    class Game {
+        width: number;
+        height: number;
+        gameState: GameState;
+        board: Tile[][];
 
-        function createBoard(width, height, gameState) {
-            let board = generate(createRow.bind(null, width, gameState), height);
-
-            let keys = new keyGen.UniformRandomGenerator(height, width);
-            for (let i = 0; i < height; i++) {
-                for (let j = 0; j < width; j++) {
-                    board[i][j].key = keys.nextKey(i, j);
-                }
+        constructor(width: number, height: number) {
+            function createRow(width, gameState) {
+                return generate<Tile>(() => new Tile(undefined, gameState), width);
             }
 
-            return board;
-        }
+            function createBoard(width, height, gameState) {
+                let board = generate<Tile[]>(createRow.bind(null, width, gameState), height);
 
-        this.width = width;
-        this.height = height;
-        this.gameState = new GameState(width * height);
-        this.board = createBoard(this.width, this.height, this.gameState);
+                let keys = new keyGen.UniformRandomGenerator(height, width);
+                for (let i = 0; i < height; i++) {
+                    for (let j = 0; j < width; j++) {
+                        board[i][j].key = keys.nextKey(i, j);
+                    }
+                }
+
+                return board;
+            }
+
+            this.width = width;
+            this.height = height;
+            this.gameState = new GameState(width * height);
+            this.board = createBoard(this.width, this.height, this.gameState);
+        }
     }
 
     return {

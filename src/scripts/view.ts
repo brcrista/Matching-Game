@@ -1,5 +1,3 @@
-'use strict';
-
 let view = function() {
     function createTile(tileModel, gameModel) {
         const tileConcealedColor = "rgb(59, 65, 70)";
@@ -17,7 +15,7 @@ let view = function() {
             9: "rgb(255, 255, 255)"
         };
 
-        let tile = document.createElement("div");
+        let tile: any = document.createElement("div");
         tile.classList.add("tile");
         tile.style.backgroundColor = tileConcealedColor;
         tile.model = tileModel;
@@ -49,7 +47,7 @@ let view = function() {
         for (let i = 0; i < rows.length; i++) {
             let tiles = rows[i].children;
             for (let j = 0; j < tiles.length; j++) {
-                let tile = tiles[j];
+                let tile: any = tiles[j];
                 tile.update();
             }
         }

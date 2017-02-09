@@ -1,7 +1,8 @@
 OUTPUT_DIR := ../out
 SCRIPT_DIR := $(OUTPUT_DIR)/scripts
 STYLE_DIR := $(OUTPUT_DIR)/style
-TS_FLAGS := --removeComments
+TS_FLAGS := --alwaysStrict --noImplicitReturns --noFallthroughCasesInSwitch --removeComments --strictNullChecks
+# --noImplicitAny
 
 all: output_dir html style scripts
 

@@ -7,26 +7,9 @@
         <script type="application/javascript" src="scripts/util.js"></script>
         <script type="application/javascript" src="scripts/model.js"></script>
         <script type="application/javascript" src="scripts/view.js"></script>
+        <script type="application/javascript" src="scripts/main.js"></script>
     </head>
     <body>
-        <script type="application/javascript">
-            function startGame() {
-                let selectDifficulty = document.getElementById("SelectDifficulty");
-                let difficulty = selectDifficulty.options[selectDifficulty.selectedIndex].text;
-
-                let gameModel = function() {
-                    switch (difficulty) {
-                        case "Easy": return new model.Game(4, 3);
-                        default:
-                        case "Medium": return new model.Game(4, 4);
-                        case "Hard": return new model.Game(5, 4);
-                    }
-                }();
-
-                document.body.removeChild(document.getElementById("DifficultyDialog"));
-                document.body.appendChild(view.createGameView(gameModel));
-            }
-        </script>
         <div class="centering-wrapper" id="DifficultyDialog">
             <div class="dialog centering-wrapper">
                 <div class="dialog-content">
@@ -36,7 +19,7 @@
                         <option selected>Medium</option>
                         <option>Easy</option>
                     </select>
-                    <button onclick="startGame()">Ok</button>
+                    <button onclick="startGame(document)">Ok</button>
                 </div>
             </div>
         </div>

@@ -1,9 +1,7 @@
-'use strict';
-
 //! Produce an array of `n` items from a `generator` function.
 //! The `generator` function will be passed the index of each element being generated.
-function generate(generator, n) {
-    let result = [];
+function generate<T>(generator: (i?: number) => T, n: number): Array<T> {
+    let result: T[] = [];
     for (let i = 0; i < n; i++) {
         result.push(generator(i));
     }
@@ -15,7 +13,7 @@ function generate(generator, n) {
 //! If `min` is not an integer it is rounded up.
 //! If `max` is not an integer it is rounded down.
 //! If `min` > `max` (after rounding if `min` or `max` is not an integer), an empty array is returned.
-function range(min, max) {
+function range(min: number, max: number): Array<number> {
     min = Math.ceil(min);
     max = Math.floor(max);
 
@@ -24,7 +22,7 @@ function range(min, max) {
 }
 
 //! Remove the `i`th element from an array and return it.
-function remove(arr, i) {
+function remove<T>(arr: Array<T>, i: number): T {
     if (!(i in range(0, arr.length - 1))) throw new RangeError(`${i} is not in the range [0, ${arr.length})`);
 
     return arr.splice(i, 1)[0];
