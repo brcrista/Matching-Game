@@ -1,19 +1,30 @@
 OUTPUT_DIR := ../out
+SCRIPT_DIR := $(OUTPUT_DIR)/scripts
+STYLE_DIR := $(OUTPUT_DIR)/style
+TS_FLAGS := --alwaysStrict --noImplicitReturns --noFallthroughCasesInSwitch --removeComments --strictNullChecks --target ES2015
+# --noImplicitAny
 
-all: $(OUTPUT_DIR) html style scripts
+all: output_dir html style scripts
 
-html: $(OUTPUT_DIR)
+html: html_dir
 	cp game.html $(OUTPUT_DIR)
 
-style: $(OUTPUT_DIR)
-	cp style/* $(OUTPUT_DIR)/style
+style: style_dir
+	cp style/* $(STYLE_DIR)
 
-scripts: $(OUTPUT_DIR)
-	mkdir -p $(OUTPUT_DIR)/scripts
-	cp scripts/* $(OUTPUT_DIR)/scripts
+scripts: script_dir
+	tsc scripts/*.ts $(TS_FLAGS) --outDir $(SCRIPT_DIR)
 
-$(OUTPUT_DIR):	
+output_dir:	
 	mkdir -p $(OUTPUT_DIR)
+
+html_dir: output_dir
+
+style_dir: output_dir
+	mkdir -p $(STYLE_DIR)
+
+script_dir: output_dir
+	mkdir -p $(SCRIPT_DIR)
 
 clean:
 	rm -rf $(OUTPUT_DIR)
