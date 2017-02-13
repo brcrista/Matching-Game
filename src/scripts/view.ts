@@ -1,6 +1,6 @@
 /// <reference path="model.ts" />
 
-let view = function() {
+namespace View {
     function createTile(tileModel, gameModel) {
         const tileConcealedColor = "rgb(59, 65, 70)";
 
@@ -89,7 +89,7 @@ let view = function() {
         return tileCounter;
     }
 
-    function createGameView(model) {
+    export function createGameView(model) {
         let gameView = document.createElement("div");
 
         let tileCounter = createTileCounter(model);
@@ -102,8 +102,4 @@ let view = function() {
 
         return gameView;
     }
-
-    return {
-        createGameView: createGameView
-    };
-}();
+}

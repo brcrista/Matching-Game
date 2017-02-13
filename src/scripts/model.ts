@@ -1,7 +1,7 @@
 /// <reference path="util.ts" />
 
-let model = function() {
-    class GameState {
+namespace Model {
+    export class GameState {
         firstTry: boolean;
         firstTile: Tile | null;
         secondTile: Tile | null;
@@ -58,7 +58,7 @@ let model = function() {
         }
     }
 
-    class Tile {
+    export class Tile {
         key?: number;
         revealed: boolean;
         flip: () => void;
@@ -78,7 +78,7 @@ let model = function() {
         }
     }
 
-    class Game {
+    export class Game {
         width: number;
         height: number;
         gameState: GameState;
@@ -109,10 +109,4 @@ let model = function() {
             this.board = createBoard(this.width, this.height, this.gameState);
         }
     }
-
-    return {
-        Game: Game,
-        Tile: Tile,
-        GameState: GameState
-    };
-}();
+}
