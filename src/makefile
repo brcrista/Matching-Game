@@ -1,8 +1,7 @@
 OUTPUT_DIR := ../out
 SCRIPT_DIR := $(OUTPUT_DIR)/scripts
 STYLE_DIR := $(OUTPUT_DIR)/style
-TS_FLAGS := --alwaysStrict --noImplicitReturns --noFallthroughCasesInSwitch --removeComments --strictNullChecks --target ES2015
-# --noImplicitAny
+TS_FLAGS := --alwaysStrict --noImplicitReturns --noFallthroughCasesInSwitch --noImplicitAny --removeComments --strictNullChecks --target ES2015
 
 all: output_dir html style scripts
 

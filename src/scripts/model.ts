@@ -9,7 +9,7 @@ namespace Model {
         tilesToFlip: Tile[];
         tilesRemaining: number;
         isMatch: () => boolean;
-        update: (Tile) => void;
+        update: (tile: Tile) => void;
 
         constructor(numberOfTiles: number) {
             this.firstTry = true;
@@ -23,7 +23,7 @@ namespace Model {
                 return this.firstTile.key === this.secondTile.key && this.firstTile !== null;
             };
 
-            this.update = function(tile) {
+            this.update = function(tile: Tile) {
                 if (tile.revealed) {
                     return;
                 } else {
@@ -89,7 +89,7 @@ namespace Model {
                 return generate(width, () => new Tile(undefined, gameState));
             }
 
-            function createBoard(width, height, gameState) {
+            function createBoard(width: number, height: number, gameState: GameState) {
                 let board = generate(height, () => createRow(width, gameState));
 
                 let keys = range(0, width * height - 1).map((n) => Math.floor(n / 2));
