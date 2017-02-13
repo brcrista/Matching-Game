@@ -1,3 +1,5 @@
+/// <reference path="util.ts" />
+
 let model = function() {
     class GameState {
         firstTry: boolean;

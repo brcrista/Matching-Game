@@ -1,3 +1,5 @@
+/// <reference path="model.ts" />
+
 let view = function() {
     function createTile(tileModel, gameModel) {
         const tileConcealedColor = "rgb(59, 65, 70)";

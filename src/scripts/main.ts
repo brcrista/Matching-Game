@@ -1,3 +1,6 @@
+/// <reference path="model.ts" />
+/// <reference path="view.ts" />
+
 function startGame(document: Document) {
     let selectDifficulty: any = document.getElementById("SelectDifficulty");
     let difficulty = selectDifficulty.options[selectDifficulty.selectedIndex].text;

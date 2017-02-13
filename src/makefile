@@ -13,7 +13,7 @@ style: style_dir
 	cp style/* $(STYLE_DIR)
 
 scripts: script_dir
-	tsc scripts/*.ts $(TS_FLAGS) --outDir $(SCRIPT_DIR)
+	tsc scripts/*.ts $(TS_FLAGS) --outFile $(SCRIPT_DIR)/script.js
 
 output_dir:	
 	mkdir -p $(OUTPUT_DIR)
