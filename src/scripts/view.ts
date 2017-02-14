@@ -60,7 +60,7 @@ namespace View {
         }
 
         if (model.gameState.tilesRemaining === 0 && !victoryMessageShown) {
-            alert("You win!");
+            setTimeout(() => alert("You win!"), 500);
             victoryMessageShown = true;
         }
     }
