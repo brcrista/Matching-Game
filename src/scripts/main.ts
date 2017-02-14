@@ -14,6 +14,6 @@ function startGame(document: Document) {
         }
     }();
 
-    document.body.removeChild(document.getElementById("DifficultyDialog"));
+    document.body.removeChild(document.getElementById("DifficultyDialog") as HTMLElement);
     document.body.appendChild(View.createGameView(gameModel));
 }

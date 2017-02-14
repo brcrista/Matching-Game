@@ -44,10 +44,10 @@ namespace View {
     }
 
     function updateView(model: Model.Game) {
-        let tileCounter = document.getElementById("TileCounter");
+        let tileCounter = document.getElementById("TileCounter") as HTMLElement;
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
 
-        let board = document.getElementById("Board");
+        let board = document.getElementById("Board") as HTMLElement;
         let rows = board.children;
         for (let i = 0; i < rows.length; i++) {
             let tiles = rows[i].children;
