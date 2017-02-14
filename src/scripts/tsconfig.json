@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "alwaysStrict": true,
+        "noEmitOnError": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "removeComments": true,
+        "strictNullChecks": true,
+        "target": "es2015"
+    },
+    "files": [
+        "main.ts",
+        "model.ts",
+        "util.ts",
+        "view.ts"
+    ]
+}
