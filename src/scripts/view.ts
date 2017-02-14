@@ -1,18 +1,23 @@
-let view = function() {
-    function createTile(tileModel, gameModel) {
+/// <reference path="model.ts" />
+
+namespace View {
+    function createTile(tileModel: Model.Tile, gameModel: Model.Game) {
         const tileConcealedColor = "rgb(59, 65, 70)";
 
-        const keyColor = {
-            0: "rgb(0, 180, 60)",
-            1: "red",
-            2: "blue",
-            3: "orange",
-            4: "rgb(185, 0, 215)",
-            5: "rgb(252, 173, 205)",
-            6: "rgb(120, 222, 255)",
-            7: "rgb(230, 250, 0)",
-            8: "rgb(0, 0, 0)",
-            9: "rgb(255, 255, 255)"
+        function keyColor(key: number): string | undefined {
+            switch (key) {
+                case 0: return "rgb(0, 180, 60)";
+                case 1: return "red";
+                case 2: return "blue";
+                case 3: return "orange";
+                case 4: return "rgb(185, 0, 215)";
+                case 5: return "rgb(252, 173, 205)";
+                case 6: return "rgb(120, 222, 255)";
+                case 7: return "rgb(230, 250, 0)";
+                case 8: return "rgb(0, 0, 0)";
+                case 9: return "rgb(255, 255, 255)";
+                default: return undefined;
+            }
         };
 
         let tile: any = document.createElement("div");
@@ -23,7 +28,7 @@ let view = function() {
         tile.update = function() {
             tile.style.backgroundColor = function() {
                 if (tile.model.revealed) {
-                    return keyColor[tile.model.key];
+                    return keyColor(tile.model.key);
                 } else {
                     return tileConcealedColor;
                 }
@@ -38,11 +43,11 @@ let view = function() {
         return tile;
     }
 
-    function updateView(model) {
-        let tileCounter = document.getElementById("TileCounter");
+    function updateView(model: Model.Game) {
+        let tileCounter = document.getElementById("TileCounter") as HTMLElement;
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
 
-        let board = document.getElementById("Board");
+        let board = document.getElementById("Board") as HTMLElement;
         let rows = board.children;
         for (let i = 0; i < rows.length; i++) {
             let tiles = rows[i].children;
@@ -57,7 +62,7 @@ let view = function() {
         }
     }
 
-    function createRow(i, width, model) {
+    function createRow(i: number, width: number, model: Model.Game) {
         let row = document.createElement("div");
         row.classList.add("row");
 
@@ -68,7 +73,7 @@ let view = function() {
         return row;
     }
 
-    function createBoard(width, height, model) {
+    function createBoard(width: number, height: number, model: Model.Game) {
         let board = document.createElement("div");
         board.classList.add("board");
 
@@ -79,7 +84,7 @@ let view = function() {
         return board;
     }
 
-    function createTileCounter(model) {
+    function createTileCounter(model: Model.Game) {
         let tileCounter = document.createElement("div");
         tileCounter.classList.add("tile-counter");
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
@@ -87,7 +92,7 @@ let view = function() {
         return tileCounter;
     }
 
-    function createGameView(model) {
+    export function createGameView(model: Model.Game) {
         let gameView = document.createElement("div");
 
         let tileCounter = createTileCounter(model);
@@ -100,8 +105,4 @@ let view = function() {
 
         return gameView;
     }
-
-    return {
-        createGameView: createGameView
-    };
-}();
+}

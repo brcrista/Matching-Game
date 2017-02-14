@@ -1,5 +1,7 @@
-let model = function() {
-    class GameState {
+/// <reference path="util.ts" />
+
+namespace Model {
+    export class GameState {
         firstTry: boolean;
         firstTile: Tile | null;
         secondTile: Tile | null;
@@ -7,7 +9,7 @@ let model = function() {
         tilesToFlip: Tile[];
         tilesRemaining: number;
         isMatch: () => boolean;
-        update: (Tile) => void;
+        update: (tile: Tile) => void;
 
         constructor(numberOfTiles: number) {
             this.firstTry = true;
@@ -21,7 +23,7 @@ let model = function() {
                 return this.firstTile.key === this.secondTile.key && this.firstTile !== null;
             };
 
-            this.update = function(tile) {
+            this.update = function(tile: Tile) {
                 if (tile.revealed) {
                     return;
                 } else {
@@ -56,7 +58,7 @@ let model = function() {
         }
     }
 
-    class Tile {
+    export class Tile {
         key?: number;
         revealed: boolean;
         flip: () => void;
@@ -76,7 +78,7 @@ let model = function() {
         }
     }
 
-    class Game {
+    export class Game {
         width: number;
         height: number;
         gameState: GameState;
@@ -87,7 +89,7 @@ let model = function() {
                 return generate(width, () => new Tile(undefined, gameState));
             }
 
-            function createBoard(width, height, gameState) {
+            function createBoard(width: number, height: number, gameState: GameState) {
                 let board = generate(height, () => createRow(width, gameState));
 
                 let keys = range(0, width * height - 1).map((n) => Math.floor(n / 2));
@@ -107,10 +109,4 @@ let model = function() {
             this.board = createBoard(this.width, this.height, this.gameState);
         }
     }
-
-    return {
-        Game: Game,
-        Tile: Tile,
-        GameState: GameState
-    };
-}();
+}
