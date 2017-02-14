@@ -1,7 +1,6 @@
 OUTPUT_DIR := ../out
 SCRIPT_DIR := $(OUTPUT_DIR)/scripts
 STYLE_DIR := $(OUTPUT_DIR)/style
-TS_FLAGS := --alwaysStrict --noImplicitReturns --noFallthroughCasesInSwitch --noImplicitAny --removeComments --strictNullChecks --target ES2015
 
 all: output_dir html style scripts
 
@@ -12,7 +11,7 @@ style: style_dir
 	cp style/* $(STYLE_DIR)
 
 scripts: script_dir
-	tsc scripts/*.ts $(TS_FLAGS) --outFile $(SCRIPT_DIR)/script.js
+	tsc --project scripts --outFile $(SCRIPT_DIR)/script.js
 
 output_dir:	
 	mkdir -p $(OUTPUT_DIR)
