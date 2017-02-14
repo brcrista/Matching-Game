@@ -43,6 +43,8 @@ namespace View {
         return tile;
     }
 
+    let victoryMessageShown = false;
+
     function updateView(model: Model.Game) {
         let tileCounter = document.getElementById("TileCounter") as HTMLElement;
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
@@ -57,8 +59,9 @@ namespace View {
             }
         }
 
-        if (model.gameState.tilesRemaining === 0) {
+        if (model.gameState.tilesRemaining === 0 && !victoryMessageShown) {
             alert("You win!");
+            victoryMessageShown = true;
         }
     }
 
