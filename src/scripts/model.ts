@@ -86,14 +86,14 @@ namespace Model {
 
         constructor(width: number, height: number) {
             function createRow(width: number, gameState: GameState) {
-                return generate(width, () => new Tile(undefined, gameState));
+                return sequence(width, () => new Tile(undefined, gameState));
             }
 
             function createBoard(width: number, height: number, gameState: GameState) {
-                let board = generate(height, () => createRow(width, gameState));
+                let board = sequence(height, () => createRow(width, gameState));
 
                 let keys = range(0, width * height - 1).map((n) => Math.floor(n / 2));
-                let keyIterator = randomize(keys)[Symbol.iterator]();
+                let keyIterator = shuffle(keys)[Symbol.iterator]();
                 for (let i = 0; i < height; i++) {
                     for (let j = 0; j < width; j++) {
                         board[i][j].key = keyIterator.next().value;
