@@ -1,6 +1,6 @@
 //! Produce an array of `n` items from a `sequencer` function.
 //! The `sequencer` function will be passed the index of each element being generated.
-function sequence<T>(n: number, sequencer: (i?: number) => T): T[] {
+function sequence<T>(n: number, sequencer: (i: number) => T): T[] {
     let result: T[] = [];
     for (let i = 0; i < n; i++) {
         result.push(sequencer(i));
@@ -27,9 +27,9 @@ function remove<T>(array: T[], i: number): T {
     return array.splice(i, 1)[0];
 }
 
-//! Randomly choose an integer in the range [`0`, `size`) with a uniform distribution. 
+//! Randomly choose an integer in the range [`0`, `size`) with a uniform distribution.
 function random(size: number) {
-    return Math.floor(Math.random() * size); 
+    return Math.floor(Math.random() * size);
 }
 
 //! Create a random permutation of array `array`.
