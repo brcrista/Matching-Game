@@ -8,12 +8,13 @@ html: html_dir
 	cp game.html $(OUTPUT_DIR)
 
 style: style_dir
-	cp style/* $(STYLE_DIR)
+	# cp style/* $(STYLE_DIR)
+	scss style/master.scss $(STYLE_DIR)/master.css --sourcemap=none
 
 scripts: script_dir
 	tsc --project scripts --outFile $(SCRIPT_DIR)/script.js
 
-output_dir:	
+output_dir:
 	mkdir -p $(OUTPUT_DIR)
 
 html_dir: output_dir
