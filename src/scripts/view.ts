@@ -2,8 +2,6 @@
 
 namespace View {
     function createTile(tileModel: Model.Tile, gameModel: Model.Game) {
-        const tileConcealedColor = "rgb(59, 65, 70)";
-
         function keyColor(key: number): string | undefined {
             switch (key) {
                 case 0: return "rgb(0, 180, 60)";
@@ -22,7 +20,7 @@ namespace View {
 
         let tile: any = document.createElement("div");
         tile.classList.add("tile");
-        tile.style.backgroundColor = tileConcealedColor;
+        tile.concealedColor = tile.style.backgroundColor;
         tile.model = tileModel;
 
         tile.update = function() {
@@ -30,7 +28,7 @@ namespace View {
                 if (tile.model.revealed) {
                     return keyColor(tile.model.key);
                 } else {
-                    return tileConcealedColor;
+                    return tile.concealedColor;
                 }
             }();
         };
