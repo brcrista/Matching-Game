@@ -2,8 +2,8 @@
 
 namespace View {
     class RgbColor {
-        constructor(public red: number, public blue: number, public green: number) {
-            for (let colorValue of [red, blue, green]) {
+        constructor(public red: number, public green: number, public blue: number) {
+            for (let colorValue of [red, green, blue]) {
                 if (!RgbColor.inRange(colorValue)) {
                     throw new RangeError(`Invalid RGB color value: ${colorValue}`);
                 }
