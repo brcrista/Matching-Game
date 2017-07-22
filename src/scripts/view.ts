@@ -1,20 +1,38 @@
 /// <reference path="model.ts" />
 
 namespace View {
+    class RgbColor {
+        constructor(public red: number, public blue: number, public green: number) {
+            for (let colorValue of [red, blue, green]) {
+                if (!RgbColor.inRange(colorValue)) {
+                    throw new RangeError(`Invalid RGB color value: ${colorValue}`);
+                }
+            }
+        }
+
+        public toString(): string {
+            return `rgb(${this.red}, ${this.green}, ${this.blue})`;
+        }
+
+        private static inRange(colorValue: number): boolean {
+            return 0 <= colorValue && colorValue <= 255;
+        }
+    }
+
     function createTile(tileModel: Model.Tile, gameModel: Model.Game) {
-        function keyColor(key: number): string | undefined {
+        function keyColor(key: number): RgbColor {
             switch (key) {
-                case 0: return "rgb(0, 180, 60)";
-                case 1: return "red";
-                case 2: return "blue";
-                case 3: return "orange";
-                case 4: return "rgb(185, 0, 215)";
-                case 5: return "rgb(252, 173, 205)";
-                case 6: return "rgb(120, 222, 255)";
-                case 7: return "rgb(230, 250, 0)";
-                case 8: return "rgb(0, 0, 0)";
-                case 9: return "rgb(255, 255, 255)";
-                default: return undefined;
+                case 0: return new RgbColor(0, 180, 6);;
+                case 1: return new RgbColor(255, 0, 0);
+                case 2: return new RgbColor(0, 0, 255);
+                case 3: return new RgbColor(255, 165, 0);
+                case 4: return new RgbColor(185, 0, 215);
+                case 5: return new RgbColor(252, 173, 205);
+                case 6: return new RgbColor(120, 222, 255);
+                case 7: return new RgbColor(230, 250, 0);
+                case 8: return new RgbColor(0, 0, 0);
+                case 9: return new RgbColor(255, 255, 255);
+                default: throw new RangeError(`Invalid tile color key: ${key}`);
             }
         };
 
@@ -26,7 +44,7 @@ namespace View {
         tile.update = function() {
             tile.style.backgroundColor = function() {
                 if (tile.model.revealed) {
-                    return keyColor(tile.model.key);
+                    return keyColor(tile.model.key).toString();
                 } else {
                     return tile.concealedColor;
                 }
