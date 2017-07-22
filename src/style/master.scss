@@ -40,15 +40,11 @@ body {
     margin-top: 30px;
 
     border-radius: 15px;
-}
 
-.tile:first-child {
-    margin-left: 0;
-}
-
-.tile:hover {
-    background-color: rgb(14, 4, 32);
-    box-shadow: 0 0 5px 10px rgb(245, 255, 250);
+    &:hover {
+        background-color: rgb(14, 4, 32);
+        box-shadow: 0 0 5px 10px rgb(245, 255, 250);
+    }
 }
 
 .dialog {
