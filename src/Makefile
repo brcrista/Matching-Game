@@ -9,7 +9,7 @@ html: html_dir
 
 style: style_dir
 	# cp style/* $(STYLE_DIR)
-	scss style/master.scss $(STYLE_DIR)/master.css --sourcemap=none
+	sass style/master.scss $(STYLE_DIR)/master.css --no-source-map
 
 scripts: script_dir
 	tsc --project scripts --outFile $(SCRIPT_DIR)/script.js
