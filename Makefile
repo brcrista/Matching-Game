@@ -23,6 +23,16 @@ $(STYLE_DIR)/master.css: $(STYLE_DIR)
 $(SCRIPT_DIR)/script.js: $(SCRIPT_DIR)
 	tsc --project src/scripts --outFile $(SCRIPT_DIR)/script.js
 
+# Aliases to make it easy to run from the command line
+.PHONY: html
+html: $(OUTPUT_DIR)/game.html
+
+.PHONY: css
+css: $(STYLE_DIR)/master.css
+
+.PHONY: js
+js: $(SCRIPT_DIR)/script.js
+
 .PHONY: clean
 clean:
 	rm -rf $(OUTPUT_DIR)
