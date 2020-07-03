@@ -1,9 +1,11 @@
-OUTPUT_DIR := out
+OUTPUT_DIR := dist
 SCRIPT_DIR := $(OUTPUT_DIR)/scripts
 STYLE_DIR := $(OUTPUT_DIR)/style
+WEBPACK_CONFIG := src/scripts/webpack.config.js
+BUNDLE := src/scripts/out/bundle.js
 
 .PHONY: all
-all: $(OUTPUT_DIR)/game.html $(STYLE_DIR)/master.css $(SCRIPT_DIR)/script.js
+all: $(OUTPUT_DIR)/game.html $(STYLE_DIR)/master.css $(SCRIPT_DIR)/bundle.js
 
 $(OUTPUT_DIR):
 	mkdir -p $(OUTPUT_DIR)
@@ -20,9 +22,11 @@ $(OUTPUT_DIR)/game.html: src/game.html $(OUTPUT_DIR)
 $(STYLE_DIR)/master.css: src/style/master.scss $(STYLE_DIR)
 	sass $< $(STYLE_DIR)/master.css --no-source-map
 
-$(SCRIPT_DIR)/script.js: src/scripts/*.ts $(SCRIPT_DIR)
+$(SCRIPT_DIR)/bundle.js: $(BUNDLE) $(SCRIPT_DIR)
+	cp $< $@
+
+$(BUNDLE): src/scripts/*.ts $(WEBPACK_CONFIG) $(SCRIPT_DIR)
 	cd src/scripts && npm run build
-	cp src/scripts/dist/* $(SCRIPT_DIR)
 
 # Aliases to make it easy to run from the command line
 .PHONY: html

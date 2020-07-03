@@ -4,13 +4,13 @@
         "noEmitOnError": true,
         "noFallthroughCasesInSwitch": true,
         "removeComments": true,
-        "outDir": "dist",
+        "outDir": "out",
         "target": "ES2015",
         "esModuleInterop": true
     },
     "exclude": [
         "node_modules",
-        "dist",
+        "out",
         "test"
     ]
 }
