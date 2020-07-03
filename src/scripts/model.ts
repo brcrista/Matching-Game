@@ -20,7 +20,7 @@ export namespace Model {
             this.tilesRemaining = numberOfTiles;
 
             this.isMatch = function() {
-                return this.firstTile.key === this.secondTile.key && this.firstTile !== null;
+                return this.firstTile!.key === this.secondTile!.key && this.firstTile !== null;
             };
 
             this.update = function(tile: Tile) {
@@ -47,7 +47,7 @@ export namespace Model {
                             this.tilesRemaining -= 2;
                         } else {
                             this.success = false;
-                            this.tilesToFlip.push(this.firstTile);
+                            this.tilesToFlip.push(this.firstTile!);
                             this.tilesToFlip.push(this.secondTile);
                         }
 

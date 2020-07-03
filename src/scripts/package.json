@@ -1,0 +1,23 @@
+{
+  "name": "matching-game",
+  "version": "1.0.0",
+  "description": "A browser-based matching game for learning HTML, CSS, and JavaScript",
+  "main": "script.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brcrista/Matching-Game.git"
+  },
+  "author": "Brian Cristante",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brcrista/Matching-Game/issues"
+  },
+  "homepage": "https://github.com/brcrista/Matching-Game#readme",
+  "devDependencies": {
+    "typescript": "^3.9.6"
+  }
+}

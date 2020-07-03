@@ -21,7 +21,8 @@ $(STYLE_DIR)/master.css: $(STYLE_DIR)
 	sass src/style/master.scss $(STYLE_DIR)/master.css --no-source-map
 
 $(SCRIPT_DIR)/script.js: $(SCRIPT_DIR)
-	tsc --project src/scripts --outFile $(SCRIPT_DIR)/script.js
+	cd src/scripts && npm run build
+	cp src/scripts/dist/* $(SCRIPT_DIR)
 
 # Aliases to make it easy to run from the command line
 .PHONY: html
