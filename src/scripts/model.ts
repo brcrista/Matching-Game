@@ -90,10 +90,10 @@ export namespace Model {
             }
 
             function createBoard(width: number, height: number, gameState: GameState): Tile[][] {
-                let board = util.sequence(height, () => createRow(width, gameState));
+                const board = util.sequence(height, () => createRow(width, gameState));
 
-                let keys = util.range(0, width * height - 1).map((n) => Math.floor(n / 2));
-                let keyIterator = util.shuffle(keys)[Symbol.iterator]();
+                const keys = util.range(0, width * height - 1).map((n) => Math.floor(n / 2));
+                const keyIterator = util.shuffle(keys)[Symbol.iterator]();
                 for (let i = 0; i < height; i++) {
                     for (let j = 0; j < width; j++) {
                         board[i][j].key = keyIterator.next().value;

@@ -2,10 +2,10 @@ import { Model } from './model';
 import { View } from './view';
 
 export function startGame(document: Document) {
-    let selectDifficulty: any = document.getElementById("SelectDifficulty");
-    let difficulty = selectDifficulty.options[selectDifficulty.selectedIndex].text;
+    const selectDifficulty: any = document.getElementById("SelectDifficulty");
+    const difficulty = selectDifficulty.options[selectDifficulty.selectedIndex].text;
 
-    let gameModel = function() {
+    const gameModel = function() {
         switch (difficulty) {
             case "Easy": return new Model.Game(4, 3);
             default:

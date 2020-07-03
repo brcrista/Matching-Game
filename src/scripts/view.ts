@@ -62,15 +62,15 @@ export namespace View {
     let victoryMessageShown = false;
 
     function updateView(model: Model.Game) {
-        let tileCounter = document.getElementById("TileCounter") as HTMLElement;
+        const tileCounter = document.getElementById("TileCounter") as HTMLElement;
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
 
-        let board = document.getElementById("Board") as HTMLElement;
-        let rows = board.children;
+        const board = document.getElementById("Board") as HTMLElement;
+        const rows = board.children;
         for (let i = 0; i < rows.length; i++) {
-            let tiles = rows[i].children;
+            const tiles = rows[i].children;
             for (let j = 0; j < tiles.length; j++) {
-                let tile: any = tiles[j];
+                const tile: any = tiles[j];
                 tile.update();
             }
         }
@@ -82,7 +82,7 @@ export namespace View {
     }
 
     function createRow(i: number, width: number, model: Model.Game) {
-        let row = document.createElement("div");
+        const row = document.createElement("div");
         row.classList.add("row");
 
         for (let j = 0; j < width; j++) {
@@ -93,7 +93,7 @@ export namespace View {
     }
 
     function createBoard(width: number, height: number, model: Model.Game) {
-        let board = document.createElement("div");
+        const board = document.createElement("div");
         board.classList.add("board");
 
         for (let i = 0; i < height; i++) {
@@ -104,7 +104,7 @@ export namespace View {
     }
 
     function createTileCounter(model: Model.Game) {
-        let tileCounter = document.createElement("div");
+        const tileCounter = document.createElement("div");
         tileCounter.classList.add("tile-counter");
         tileCounter.innerHTML = `Number of tiles left: ${model.gameState.tilesRemaining}`;
 
@@ -112,13 +112,13 @@ export namespace View {
     }
 
     export function createGameView(model: Model.Game) {
-        let gameView = document.createElement("div");
+        const gameView = document.createElement("div");
 
-        let tileCounter = createTileCounter(model);
+        const tileCounter = createTileCounter(model);
         tileCounter.id = "TileCounter";
         gameView.appendChild(tileCounter);
 
-        let board = createBoard(model.width, model.height, model);
+        const board = createBoard(model.width, model.height, model);
         board.id = "Board";
         gameView.appendChild(board);
 
