@@ -14,13 +14,13 @@ $(STYLE_DIR):
 $(SCRIPT_DIR):
 	mkdir -p $(SCRIPT_DIR)
 
-$(OUTPUT_DIR)/game.html: $(OUTPUT_DIR)
-	cp src/game.html $(OUTPUT_DIR)
+$(OUTPUT_DIR)/game.html: src/game.html $(OUTPUT_DIR)
+	cp $< $(OUTPUT_DIR)
 
-$(STYLE_DIR)/master.css: $(STYLE_DIR)
-	sass src/style/master.scss $(STYLE_DIR)/master.css --no-source-map
+$(STYLE_DIR)/master.css: src/style/master.scss $(STYLE_DIR)
+	sass $< $(STYLE_DIR)/master.css --no-source-map
 
-$(SCRIPT_DIR)/script.js: $(SCRIPT_DIR)
+$(SCRIPT_DIR)/script.js: src/scripts/*.ts $(SCRIPT_DIR)
 	cd src/scripts && npm run build
 	cp src/scripts/dist/* $(SCRIPT_DIR)
 
