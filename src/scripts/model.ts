@@ -1,6 +1,6 @@
-/// <reference path="util.ts" />
+import * as util from './util';
 
-namespace Model {
+export namespace Model {
     export class GameState {
         firstTry: boolean;
         firstTile: Tile | null;
@@ -85,15 +85,15 @@ namespace Model {
         board: Tile[][];
 
         constructor(width: number, height: number) {
-            function createRow(width: number, gameState: GameState) {
-                return sequence(width, () => new Tile(undefined, gameState));
+            function createRow(width: number, gameState: GameState): Tile[] {
+                return util.sequence(width, () => new Tile(undefined, gameState));
             }
 
-            function createBoard(width: number, height: number, gameState: GameState) {
-                let board = sequence(height, () => createRow(width, gameState));
+            function createBoard(width: number, height: number, gameState: GameState): Tile[][] {
+                let board = util.sequence(height, () => createRow(width, gameState));
 
-                let keys = range(0, width * height - 1).map((n) => Math.floor(n / 2));
-                let keyIterator = shuffle(keys)[Symbol.iterator]();
+                let keys = util.range(0, width * height - 1).map((n) => Math.floor(n / 2));
+                let keyIterator = util.shuffle(keys)[Symbol.iterator]();
                 for (let i = 0; i < height; i++) {
                     for (let j = 0; j < width; j++) {
                         board[i][j].key = keyIterator.next().value;

@@ -1,6 +1,6 @@
 //! Produce an array of `n` items from a `sequencer` function.
 //! The `sequencer` function will be passed the index of each element being generated.
-function sequence<T>(n: number, sequencer: (i: number) => T): T[] {
+export function sequence<T>(n: number, sequencer: (i: number) => T): T[] {
     let result: T[] = [];
     for (let i = 0; i < n; i++) {
         result.push(sequencer(i));
@@ -13,7 +13,7 @@ function sequence<T>(n: number, sequencer: (i: number) => T): T[] {
 //! If `min` is not an integer it is rounded up.
 //! If `max` is not an integer it is rounded down.
 //! If `min` > `max` (after rounding if `min` or `max` is not an integer), an empty array is returned.
-function range(min: number, max: number): number[] {
+export function range(min: number, max: number): number[] {
     min = Math.ceil(min);
     max = Math.floor(max);
 
@@ -33,7 +33,7 @@ function random(size: number) {
 }
 
 //! Create a random permutation of array `array`.
-function shuffle<T>(array: T[]): T[] {
+export function shuffle<T>(array: T[]): T[] {
     let arrayCopy = array.slice(0);
     return sequence(array.length, () => remove(arrayCopy, random(arrayCopy.length)));
 }

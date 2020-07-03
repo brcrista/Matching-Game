@@ -1,6 +1,6 @@
-/// <reference path="model.ts" />
+import { Model } from './model';
 
-namespace View {
+export namespace View {
     class RgbColor {
         constructor(public red: number, public green: number, public blue: number) {
             for (let colorValue of [red, green, blue]) {

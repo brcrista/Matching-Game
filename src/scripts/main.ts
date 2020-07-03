@@ -1,7 +1,7 @@
-/// <reference path="model.ts" />
-/// <reference path="view.ts" />
+import { Model } from './model';
+import { View } from './view';
 
-function startGame(document: Document) {
+export function startGame(document: Document) {
     let selectDifficulty: any = document.getElementById("SelectDifficulty");
     let difficulty = selectDifficulty.options[selectDifficulty.selectedIndex].text;
 

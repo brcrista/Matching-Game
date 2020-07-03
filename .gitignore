@@ -1,4 +1,5 @@
 .DS_STORE
-.vscode/
-out/
 .sass-cache/
+.vscode/
+node_modules/
+out/
