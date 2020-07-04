@@ -4,8 +4,13 @@
 
 A browser-based matching game for learning HTML, CSS, and JavaScript.
 
-## Prerequisites
+## Setup
+
+To build the project:
 
 ```bash
 npm install -g sass
+make
 ```
+
+Then to run the game, open `dist/game.html` in your browser.
