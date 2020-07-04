@@ -1,4 +1,4 @@
-import * as util from './util';
+import * as jsHelpers from 'js-helpers';
 
 export namespace Model {
     export class GameState {
@@ -86,17 +86,29 @@ export namespace Model {
 
         constructor(width: number, height: number) {
             function createRow(width: number, gameState: GameState): Tile[] {
-                return util.sequence(width, () => new Tile(undefined, gameState));
+                return Array.from(
+                    jsHelpers.iterable.sequence(width, () => new Tile(undefined, gameState))
+                );
             }
 
             function createBoard(width: number, height: number, gameState: GameState): Tile[][] {
-                const board = util.sequence(height, () => createRow(width, gameState));
+                const board = Array.from(
+                    jsHelpers.iterable.sequence(height, () => createRow(width, gameState))
+                );
 
-                const keys = util.range(0, width * height - 1).map((n) => Math.floor(n / 2));
-                const keyIterator = util.shuffle(keys)[Symbol.iterator]();
+                const keys = jsHelpers.iterable.map(
+                    jsHelpers.iterable.range(0, width * height),
+                    n => Math.floor(n / 2)
+                );
+
+                // TODO use `repeat` / `zip` to avoid manual iteration
+                // and remove the type assertion.
+                const keyIterator = jsHelpers.random.shuffle(keys)[Symbol.iterator]();
                 for (let i = 0; i < height; i++) {
                     for (let j = 0; j < width; j++) {
-                        board[i][j].key = keyIterator.next().value;
+                        // Assert: `keyIterator` will produce `width * height` values,
+                        // so it will not return `void`.
+                        board[i][j].key = <number>keyIterator.next().value;
                     }
                 }
 
