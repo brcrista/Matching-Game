@@ -1,4 +1,5 @@
-import * as jsHelpers from 'js-helpers';
+import * as iterable from 'js-helpers/iterable';
+import * as random from 'js-helpers/random';
 
 export namespace Model {
     export class GameState {
@@ -87,23 +88,23 @@ export namespace Model {
         constructor(width: number, height: number) {
             function createRow(width: number, gameState: GameState): Tile[] {
                 return Array.from(
-                    jsHelpers.iterable.sequence(width, () => new Tile(undefined, gameState))
+                    iterable.sequence(width, () => new Tile(undefined, gameState))
                 );
             }
 
             function createBoard(width: number, height: number, gameState: GameState): Tile[][] {
                 const board = Array.from(
-                    jsHelpers.iterable.sequence(height, () => createRow(width, gameState))
+                    iterable.sequence(height, () => createRow(width, gameState))
                 );
 
-                const keys = jsHelpers.iterable.map(
-                    jsHelpers.iterable.range(0, width * height),
+                const keys = iterable.map(
+                    iterable.range(0, width * height),
                     n => Math.floor(n / 2)
                 );
 
                 // TODO use `repeat` / `zip` to avoid manual iteration
                 // and remove the type assertion.
-                const keyIterator = jsHelpers.random.shuffle(keys)[Symbol.iterator]();
+                const keyIterator = random.shuffle(keys)[Symbol.iterator]();
                 for (let i = 0; i < height; i++) {
                     for (let j = 0; j < width; j++) {
                         // Assert: `keyIterator` will produce `width * height` values,

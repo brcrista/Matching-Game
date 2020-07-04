@@ -23,6 +23,6 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "js-helpers": "https://github.com/brcrista/JavaScript-Helpers/releases/download/v1.0.0/js-helpers-1.0.0.tgz"
+    "js-helpers": "https://github.com/brcrista/JavaScript-Helpers/releases/download/v2.0.0/js-helpers-2.0.0.tgz"
   }
 }
