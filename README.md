@@ -10,6 +10,7 @@ To build the project:
 
 ```bash
 npm install -g sass
+npm install -g typescript
 make
 ```
 
