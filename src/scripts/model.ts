@@ -98,8 +98,8 @@ export namespace Model {
                 );
 
                 const keys = iterable.map(
-                    iterable.range(0, width * height),
-                    n => Math.floor(n / 2)
+                    (n: number) => Math.floor(n / 2),
+                    iterable.range(0, width * height)
                 );
 
                 // TODO use `repeat` / `zip` to avoid manual iteration
