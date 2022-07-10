@@ -20,13 +20,13 @@ $(OUTPUT_DIR)/game.html: src/game.html $(OUTPUT_DIR)
 	cp $< $(OUTPUT_DIR)
 
 $(STYLE_DIR)/master.css: src/style/master.scss $(STYLE_DIR)
-	sass $< $(STYLE_DIR)/master.css --no-source-map
+	sass $< $(STYLE_DIR)/master.css
 
 $(SCRIPT_DIR)/bundle.js: $(BUNDLE) $(SCRIPT_DIR)
 	cp $< $@
 
 $(BUNDLE): src/scripts/*.ts $(WEBPACK_CONFIG) $(SCRIPT_DIR)
-	cd src/scripts && npm run build
+	cd src/scripts && npm install && npm run build
 
 # Aliases to make it easy to run from the command line
 .PHONY: html
